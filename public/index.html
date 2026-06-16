@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Temperature Monitoring Dashboard</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      body {
+        background-color: #f4f6f9;
+        color: #333;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 40px 20px;
+      }
+
+      h1 {
+        color: #1a202c;
+        margin-bottom: 20px;
+        font-size: 2.2rem;
+        text-align: center;
+      }
+
+      hr {
+        width: 100%;
+        max-width: 800px;
+        border: 0;
+        height: 1px;
+        background: #e2e8f0;
+        margin: 20px 0;
+      }
+
+      .container {
+        width: 100%;
+        max-width: 800px;
+        background: #ffffff;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow:
+          0 4px 6px -1px rgba(0, 0, 0, 0.1),
+          0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        margin-bottom: 25px;
+      }
+
+      h2 {
+        color: #2d3748;
+        font-size: 1.4rem;
+        margin-bottom: 15px;
+        border-left: 4px solid #3182ce;
+        padding-left: 10px;
+      }
+
+      .monitor-grid {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 15px;
+        margin-top: 10px;
+      }
+
+      .temp-card {
+        background: #ebf8ff;
+        border: 1px solid #bee3f8;
+        padding: 20px;
+        border-radius: 8px;
+        min-width: 220px;
+        flex: 1;
+      }
+
+      .temp-card p {
+        font-size: 0.9rem;
+        color: #2b6cb0;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .temp-card span {
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: #2b6cb0;
+      }
+
+      .status-card {
+        background: #f7fafc;
+        border: 1px solid #e2e8f0;
+        padding: 20px;
+        border-radius: 8px;
+        min-width: 220px;
+        flex: 1.5;
+      }
+
+      .status-card p {
+        font-size: 0.9rem;
+        color: #4a5568;
+        margin-bottom: 5px;
+      }
+
+      #status-text {
+        font-weight: 600;
+        color: #4a5568;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 15px;
+        overflow: hidden;
+        border-radius: 8px;
+      }
+
+      th,
+      td {
+        padding: 12px 15px;
+        text-align: left;
+      }
+
+      th {
+        background-color: #4a5568;
+        color: #ffffff;
+        font-size: 0.95rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      tr {
+        border-bottom: 1px solid #edf2f7;
+      }
+
+      tr:nth-child(even) {
+        background-color: #f7fafc;
+      }
+
+      tr:last-child {
+        border-bottom: 2px solid #e2e8f0;
+      }
+
+      td {
+        color: #4a5568;
+        font-size: 1rem;
+      }
+
+      .live-row {
+        background-color: #f0fff4 !important;
+        font-weight: bold;
+        color: #38a169;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Temperature Monitoring Dashboard</h1>
+    <hr />
+
+    <div class="container">
+      <h2>Live Monitoring</h2>
+      <div class="monitor-grid">
+        <div class="temp-card">
+          <p>Current Temperature</p>
+          <span id="live-temp">--</span> °C
+        </div>
+        <div class="status-card">
+          <p>Connection Status</p>
+          <div id="status-text">Connecting to server...</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <h2>Recent Temperature Logs</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Timestamp</th>
+            <th>Temperature</th>
+          </tr>
+        </thead>
+        <tbody id="logs-table-body">
+          <tr>
+            <td colspan="2" style="text-align: center; color: #a0aec0">
+              Loading recent logs...
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

@@ -8,6 +8,7 @@ const app = express();
 const server = http.createServer(app);
 const wss = new WebSocket.Server({ server });
 
+const TARGET_TOPIC = "sensor_zigirumugabe_louis_miguel";
 let recentLogs = [];
 
 app.use(express.static(path.join(__dirname, "public")));
@@ -19,12 +20,17 @@ app.get("/api/temperature", (req, res) => {
 const mqttClient = mqtt.connect("mqtt://broker.benax.rw:1883");
 
 mqttClient.on("connect", () => {
-  mqttClient.subscribe("sensor_byiringiro_emmanuel");
+  console.log(`Connected to MQTT Broker. Subscribing to: ${TARGET_TOPIC}`);
+  mqttClient.subscribe(TARGET_TOPIC);
 });
 
 mqttClient.on("message", (topic, message) => {
-  if (topic === "sensor_byiringiro_emmanuel") {
-    const temperatureValue = parseFloat(message.toString());
+  if (topic === TARGET_TOPIC) {
+    const rawStr = message.toString().trim();
+
+    // Strips away any unintentional characters leaving only valid numbers/decimals
+    const cleanNumStr = rawStr.replace(/[^\d.-]/g, "");
+    const temperatureValue = parseFloat(cleanNumStr);
 
     if (!isNaN(temperatureValue)) {
       const logEntry = {
